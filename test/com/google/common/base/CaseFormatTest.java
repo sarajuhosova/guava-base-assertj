@@ -16,16 +16,11 @@
 
 package com.google.common.base;
 
-import static com.google.common.base.CaseFormat.LOWER_CAMEL;
-import static com.google.common.base.CaseFormat.LOWER_HYPHEN;
-import static com.google.common.base.CaseFormat.LOWER_UNDERSCORE;
-import static com.google.common.base.CaseFormat.UPPER_CAMEL;
-import static com.google.common.base.CaseFormat.UPPER_UNDERSCORE;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.google.common.annotations.GwtCompatible;
 import junit.framework.TestCase;
+
+import static com.google.common.base.CaseFormat.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Unit test for {@link CaseFormat}.
@@ -35,15 +30,15 @@ import junit.framework.TestCase;
 @GwtCompatible(emulated = true)
 public class CaseFormatTest extends TestCase {
 
-  public void testIdentity() {
-    for (CaseFormat from : CaseFormat.values()) {
-      assertThat(from.to(from, "foo")).isSameAs("foo");
-      for (CaseFormat to : CaseFormat.values()) {
-          assertThat(from.to(to, "")).isEqualTo("");
-          assertThat(from.to(to, " ")).isEqualTo(" ");
-      }
+    public void testIdentity() {
+        for (CaseFormat from : CaseFormat.values()) {
+            assertThat(from.to(from, "foo")).isSameAs("foo");
+            for (CaseFormat to : CaseFormat.values()) {
+                assertThat(from.to(to, "")).isEqualTo("");
+                assertThat(from.to(to, " ")).isEqualTo(" ");
+            }
+        }
     }
-  }
 
 //    public void testLowerHyphenToLowerHyphen() {
 //        assertThat().isEqualTo();("foo", LOWER_HYPHEN.to(LOWER_HYPHEN, "foo"));
@@ -177,31 +172,31 @@ public class CaseFormatTest extends TestCase {
         assertThat(UPPER_UNDERSCORE.to(UPPER_UNDERSCORE, "FOO_BAR")).isEqualTo("FOO_BAR");
     }
 
-  public void testConverterToForward() {
-    assertThat(UPPER_UNDERSCORE.converterTo(UPPER_CAMEL).convert("FOO_BAR")).isEqualTo("FooBar");
-    assertThat(UPPER_UNDERSCORE.converterTo(LOWER_CAMEL).convert("FOO_BAR")).isEqualTo("fooBar");
-    assertThat(UPPER_CAMEL.converterTo(UPPER_UNDERSCORE).convert("FooBar")).isEqualTo("FOO_BAR");
-    assertThat(LOWER_CAMEL.converterTo(UPPER_UNDERSCORE).convert("fooBar")).isEqualTo("FOO_BAR");
-  }
-
-  public void testConverterToBackward() {
-    assertThat(UPPER_UNDERSCORE.converterTo(UPPER_CAMEL).reverse().convert("FooBar")).isEqualTo("FOO_BAR");
-    assertThat(UPPER_UNDERSCORE.converterTo(LOWER_CAMEL).reverse().convert("fooBar")).isEqualTo("FOO_BAR");
-    assertThat(UPPER_CAMEL.converterTo(UPPER_UNDERSCORE).reverse().convert("FOO_BAR")).isEqualTo("FooBar");
-    assertThat(LOWER_CAMEL.converterTo(UPPER_UNDERSCORE).reverse().convert("FOO_BAR")).isEqualTo("fooBar");
-  }
-
-  public void testConverter_nullConversions() {
-    for (CaseFormat outer : CaseFormat.values()) {
-      for (CaseFormat inner : CaseFormat.values()) {
-        assertThat(outer.converterTo(inner).convert(null)).isNull();
-        assertThat(outer.converterTo(inner).reverse().convert(null)).isNull();
-      }
+    public void testConverterToForward() {
+        assertThat(UPPER_UNDERSCORE.converterTo(UPPER_CAMEL).convert("FOO_BAR")).isEqualTo("FooBar");
+        assertThat(UPPER_UNDERSCORE.converterTo(LOWER_CAMEL).convert("FOO_BAR")).isEqualTo("fooBar");
+        assertThat(UPPER_CAMEL.converterTo(UPPER_UNDERSCORE).convert("FooBar")).isEqualTo("FOO_BAR");
+        assertThat(LOWER_CAMEL.converterTo(UPPER_UNDERSCORE).convert("fooBar")).isEqualTo("FOO_BAR");
     }
-  }
 
-  public void testConverter_toString() {
-    assertThat(LOWER_HYPHEN.converterTo(UPPER_CAMEL).toString())
-            .isEqualTo("LOWER_HYPHEN.converterTo(UPPER_CAMEL)");
-  }
+    public void testConverterToBackward() {
+        assertThat(UPPER_UNDERSCORE.converterTo(UPPER_CAMEL).reverse().convert("FooBar")).isEqualTo("FOO_BAR");
+        assertThat(UPPER_UNDERSCORE.converterTo(LOWER_CAMEL).reverse().convert("fooBar")).isEqualTo("FOO_BAR");
+        assertThat(UPPER_CAMEL.converterTo(UPPER_UNDERSCORE).reverse().convert("FOO_BAR")).isEqualTo("FooBar");
+        assertThat(LOWER_CAMEL.converterTo(UPPER_UNDERSCORE).reverse().convert("FOO_BAR")).isEqualTo("fooBar");
+    }
+
+    public void testConverter_nullConversions() {
+        for (CaseFormat outer : CaseFormat.values()) {
+            for (CaseFormat inner : CaseFormat.values()) {
+                assertThat(outer.converterTo(inner).convert(null)).isNull();
+                assertThat(outer.converterTo(inner).reverse().convert(null)).isNull();
+            }
+        }
+    }
+
+    public void testConverter_toString() {
+        assertThat(LOWER_HYPHEN.converterTo(UPPER_CAMEL).toString())
+                .isEqualTo("LOWER_HYPHEN.converterTo(UPPER_CAMEL)");
+    }
 }

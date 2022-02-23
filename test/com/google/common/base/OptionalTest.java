@@ -245,7 +245,7 @@ public final class OptionalTest extends TestCase {
     }
 
     private static FluentIterable<? extends Number> getSomeNumbers() {
-        return FluentIterable.from(ImmutableList.<Number>of());
+        return FluentIterable.from(ImmutableList.of());
     }
 
     /*
@@ -268,7 +268,7 @@ public final class OptionalTest extends TestCase {
 
     @SuppressWarnings("unused") // compilation test
     public void testSampleCodeFine1() {
-        Optional<Number> optionalInt = Optional.of((Number) 1);
+        Optional<Number> optionalInt = Optional.of(1);
         Number value = optionalInt.or(0.5); // fine
     }
 

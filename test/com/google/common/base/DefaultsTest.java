@@ -26,19 +26,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jige Yu
  */
 public class DefaultsTest extends TestCase {
-  public void testGetDefaultValue() {
-      assertThat(Defaults.defaultValue(boolean.class).booleanValue()).isFalse();
-      assertThat(Defaults.defaultValue(char.class).charValue()).isEqualTo('\0');
+    public void testGetDefaultValue() {
+        assertThat(Defaults.defaultValue(boolean.class).booleanValue()).isFalse();
+        assertThat(Defaults.defaultValue(char.class).charValue()).isEqualTo('\0');
 
-      assertThat(Defaults.defaultValue(byte.class).byteValue()).isEqualTo((byte) 0);
-      assertThat(Defaults.defaultValue(short.class).shortValue()).isEqualTo((short) 0);
-      assertThat(Defaults.defaultValue(int.class).intValue()).isEqualTo(0);
-      assertThat(Defaults.defaultValue(long.class).longValue()).isEqualTo(0L);
+        assertThat(Defaults.defaultValue(byte.class).byteValue()).isEqualTo((byte) 0);
+        assertThat(Defaults.defaultValue(short.class).shortValue()).isEqualTo((short) 0);
+        assertThat(Defaults.defaultValue(int.class).intValue()).isEqualTo(0);
+        assertThat(Defaults.defaultValue(long.class).longValue()).isEqualTo(0L);
 
-      assertThat(Defaults.defaultValue(float.class).floatValue()).isEqualTo(0.0f);
-      assertThat(Defaults.defaultValue(double.class).doubleValue()).isEqualTo(0.0d);
+        assertThat(Defaults.defaultValue(float.class).floatValue()).isEqualTo(0.0f);
+        assertThat(Defaults.defaultValue(double.class).doubleValue()).isEqualTo(0.0d);
 
-      assertThat(Defaults.defaultValue(void.class)).isNull();
-      assertThat(Defaults.defaultValue(String.class)).isNull();
-  }
+        assertThat(Defaults.defaultValue(void.class)).isNull();
+        assertThat(Defaults.defaultValue(String.class)).isNull();
+    }
 }
