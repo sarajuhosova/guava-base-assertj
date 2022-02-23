@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import junit.framework.TestCase;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Unit test for {@code AbstractIterator}.
  *
@@ -56,19 +58,19 @@ public class AbstractIteratorTest extends TestCase {
           }
         };
 
-    assertTrue(iter.hasNext());
-    assertEquals(0, (int) iter.next());
+    assertThat(iter.hasNext()).isTrue();
+    assertThat((int) iter.next()).isEqualTo(0);
 
     // verify idempotence of hasNext()
-    assertTrue(iter.hasNext());
-    assertTrue(iter.hasNext());
-    assertTrue(iter.hasNext());
-    assertEquals(1, (int) iter.next());
+    assertThat(iter.hasNext()).isTrue();
+    assertThat(iter.hasNext()).isTrue();
+    assertThat(iter.hasNext()).isTrue();
+    assertThat((int) iter.next()).isEqualTo(1);
 
-    assertFalse(iter.hasNext());
+    assertThat(iter.hasNext()).isFalse();
 
     // Make sure computeNext() doesn't get invoked again
-    assertFalse(iter.hasNext());
+    assertThat(iter.hasNext()).isFalse();
 
     try {
       iter.next();
@@ -127,7 +129,7 @@ public class AbstractIteratorTest extends TestCase {
       iter.hasNext();
       fail("No exception thrown");
     } catch (SomeUncheckedException e) {
-      assertSame(exception, e);
+      assertThat(e).isSameAs(exception);
     }
   }
 
@@ -162,7 +164,7 @@ public class AbstractIteratorTest extends TestCase {
           }
         };
 
-    assertEquals(0, (int) iter.next());
+    assertThat((int) iter.next()).isEqualTo(0);
 
     try {
       iter.remove();

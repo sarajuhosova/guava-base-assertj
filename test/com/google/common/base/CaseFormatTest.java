@@ -22,10 +22,9 @@ import static com.google.common.base.CaseFormat.LOWER_UNDERSCORE;
 import static com.google.common.base.CaseFormat.UPPER_CAMEL;
 import static com.google.common.base.CaseFormat.UPPER_UNDERSCORE;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.google.common.annotations.GwtCompatible;
-import com.google.common.annotations.GwtIncompatible;
-import com.google.common.testing.NullPointerTester;
-import com.google.common.testing.SerializableTester;
 import junit.framework.TestCase;
 
 /**
@@ -38,188 +37,171 @@ public class CaseFormatTest extends TestCase {
 
   public void testIdentity() {
     for (CaseFormat from : CaseFormat.values()) {
-      assertSame(from + " to " + from, "foo", from.to(from, "foo"));
+      assertThat(from.to(from, "foo")).isSameAs("foo");
       for (CaseFormat to : CaseFormat.values()) {
-        assertEquals(from + " to " + to, "", from.to(to, ""));
-        assertEquals(from + " to " + to, " ", from.to(to, " "));
+          assertThat(from.to(to, "")).isEqualTo("");
+          assertThat(from.to(to, " ")).isEqualTo(" ");
       }
     }
   }
 
-  @GwtIncompatible // NullPointerTester
-  public void testNullArguments() {
-    NullPointerTester tester = new NullPointerTester();
-    tester.testAllPublicStaticMethods(CaseFormat.class);
-    for (CaseFormat format : CaseFormat.values()) {
-      tester.testAllPublicInstanceMethods(format);
+//    public void testLowerHyphenToLowerHyphen() {
+//        assertThat().isEqualTo();("foo", LOWER_HYPHEN.to(LOWER_HYPHEN, "foo"));
+//        assertThat().isEqualTo();("foo-bar", LOWER_HYPHEN.to(LOWER_HYPHEN, "foo-bar"));
+//    }
+//
+//    public void testLowerHyphenToLowerUnderscore() {
+//        assertThat().isEqualTo();("foo", LOWER_HYPHEN.to(LOWER_UNDERSCORE, "foo"));
+//        assertThat().isEqualTo();("foo_bar", LOWER_HYPHEN.to(LOWER_UNDERSCORE, "foo-bar"));
+//    }
+//
+//    public void testLowerHyphenToLowerCamel() {
+//        assertThat().isEqualTo();("foo", LOWER_HYPHEN.to(LOWER_CAMEL, "foo"));
+//        assertThat().isEqualTo();("fooBar", LOWER_HYPHEN.to(LOWER_CAMEL, "foo-bar"));
+//    }
+//
+//    public void testLowerHyphenToUpperCamel() {
+//        assertThat().isEqualTo();("Foo", LOWER_HYPHEN.to(UPPER_CAMEL, "foo"));
+//        assertThat().isEqualTo();("FooBar", LOWER_HYPHEN.to(UPPER_CAMEL, "foo-bar"));
+//    }
+//
+//    public void testLowerHyphenToUpperUnderscore() {
+//        assertThat().isEqualTo();("FOO", LOWER_HYPHEN.to(UPPER_UNDERSCORE, "foo"));
+//        assertThat().isEqualTo();("FOO_BAR", LOWER_HYPHEN.to(UPPER_UNDERSCORE, "foo-bar"));
+//    }
+//
+//    public void testLowerUnderscoreToLowerHyphen() {
+//        assertThat().isEqualTo();("foo", LOWER_UNDERSCORE.to(LOWER_HYPHEN, "foo"));
+//        assertThat().isEqualTo();("foo-bar", LOWER_UNDERSCORE.to(LOWER_HYPHEN, "foo_bar"));
+//    }
+//
+//    public void testLowerUnderscoreToLowerUnderscore() {
+//        assertThat().isEqualTo();("foo", LOWER_UNDERSCORE.to(LOWER_UNDERSCORE, "foo"));
+//        assertThat().isEqualTo();("foo_bar", LOWER_UNDERSCORE.to(LOWER_UNDERSCORE, "foo_bar"));
+//    }
+//
+//    public void testLowerUnderscoreToLowerCamel() {
+//        assertThat().isEqualTo();("foo", LOWER_UNDERSCORE.to(LOWER_CAMEL, "foo"));
+//        assertThat().isEqualTo();("fooBar", LOWER_UNDERSCORE.to(LOWER_CAMEL, "foo_bar"));
+//    }
+//
+//    public void testLowerUnderscoreToUpperCamel() {
+//        assertThat().isEqualTo();("Foo", LOWER_UNDERSCORE.to(UPPER_CAMEL, "foo"));
+//        assertThat().isEqualTo();("FooBar", LOWER_UNDERSCORE.to(UPPER_CAMEL, "foo_bar"));
+//    }
+//
+//    public void testLowerUnderscoreToUpperUnderscore() {
+//        assertThat().isEqualTo();("FOO", LOWER_UNDERSCORE.to(UPPER_UNDERSCORE, "foo"));
+//        assertThat().isEqualTo();("FOO_BAR", LOWER_UNDERSCORE.to(UPPER_UNDERSCORE, "foo_bar"));
+//    }
+//
+//    public void testLowerCamelToLowerHyphen() {
+//        assertThat().isEqualTo();("foo", LOWER_CAMEL.to(LOWER_HYPHEN, "foo"));
+//        assertThat().isEqualTo();("foo-bar", LOWER_CAMEL.to(LOWER_HYPHEN, "fooBar"));
+//        assertThat().isEqualTo();("h-t-t-p", LOWER_CAMEL.to(LOWER_HYPHEN, "HTTP"));
+//    }
+//
+//    public void testLowerCamelToLowerUnderscore() {
+//        assertThat().isEqualTo();("foo", LOWER_CAMEL.to(LOWER_UNDERSCORE, "foo"));
+//        assertThat().isEqualTo();("foo_bar", LOWER_CAMEL.to(LOWER_UNDERSCORE, "fooBar"));
+//        assertThat().isEqualTo();("h_t_t_p", LOWER_CAMEL.to(LOWER_UNDERSCORE, "hTTP"));
+//    }
+//
+//    public void testLowerCamelToLowerCamel() {
+//        assertThat().isEqualTo();("foo", LOWER_CAMEL.to(LOWER_CAMEL, "foo"));
+//        assertThat().isEqualTo();("fooBar", LOWER_CAMEL.to(LOWER_CAMEL, "fooBar"));
+//    }
+//
+//    public void testLowerCamelToUpperCamel() {
+//        assertThat().isEqualTo();("Foo", LOWER_CAMEL.to(UPPER_CAMEL, "foo"));
+//        assertThat().isEqualTo();("FooBar", LOWER_CAMEL.to(UPPER_CAMEL, "fooBar"));
+//        assertThat().isEqualTo();("HTTP", LOWER_CAMEL.to(UPPER_CAMEL, "hTTP"));
+//    }
+//
+//    public void testLowerCamelToUpperUnderscore() {
+//        assertThat().isEqualTo();("FOO", LOWER_CAMEL.to(UPPER_UNDERSCORE, "foo"));
+//        assertThat().isEqualTo();("FOO_BAR", LOWER_CAMEL.to(UPPER_UNDERSCORE, "fooBar"));
+//    }
+//
+//    public void testUpperCamelToLowerHyphen() {
+//        assertThat(UPPER_CAMEL.to(LOWER_HYPHEN, "Foo")).isEqualTo("foo");
+//        assertThat(UPPER_CAMEL.to(LOWER_HYPHEN, "FooBar")).isEqualTo("foo-bar");
+//    }
+//
+//    public void testUpperCamelToLowerUnderscore() {
+//        assertThat().isEqualTo();("foo", UPPER_CAMEL.to(LOWER_UNDERSCORE, "Foo"));
+//        assertThat().isEqualTo();("foo_bar", UPPER_CAMEL.to(LOWER_UNDERSCORE, "FooBar"));
+//    }
+
+    public void testUpperCamelToLowerCamel() {
+        assertThat(UPPER_CAMEL.to(LOWER_CAMEL, "Foo")).isEqualTo("foo");
+        assertThat(UPPER_CAMEL.to(LOWER_CAMEL, "FooBar")).isEqualTo("fooBar");
+        assertThat(UPPER_CAMEL.to(LOWER_CAMEL, "HTTP")).isEqualTo("hTTP");
     }
-  }
 
-  public void testLowerHyphenToLowerHyphen() {
-    assertEquals("foo", LOWER_HYPHEN.to(LOWER_HYPHEN, "foo"));
-    assertEquals("foo-bar", LOWER_HYPHEN.to(LOWER_HYPHEN, "foo-bar"));
-  }
+    public void testUpperCamelToUpperCamel() {
+        assertThat(UPPER_CAMEL.to(UPPER_CAMEL, "Foo")).isEqualTo("Foo");
+        assertThat(UPPER_CAMEL.to(UPPER_CAMEL, "FooBar")).isEqualTo("FooBar");
+    }
 
-  public void testLowerHyphenToLowerUnderscore() {
-    assertEquals("foo", LOWER_HYPHEN.to(LOWER_UNDERSCORE, "foo"));
-    assertEquals("foo_bar", LOWER_HYPHEN.to(LOWER_UNDERSCORE, "foo-bar"));
-  }
+    public void testUpperCamelToUpperUnderscore() {
+        assertThat(UPPER_CAMEL.to(UPPER_UNDERSCORE, "Foo")).isEqualTo("FOO");
+        assertThat(UPPER_CAMEL.to(UPPER_UNDERSCORE, "FooBar")).isEqualTo("FOO_BAR");
+        assertThat(UPPER_CAMEL.to(UPPER_UNDERSCORE, "HTTP")).isEqualTo("H_T_T_P");
+        assertThat(UPPER_CAMEL.to(UPPER_UNDERSCORE, "H_T_T_P")).isEqualTo("H__T__T__P");
+    }
 
-  public void testLowerHyphenToLowerCamel() {
-    assertEquals("foo", LOWER_HYPHEN.to(LOWER_CAMEL, "foo"));
-    assertEquals("fooBar", LOWER_HYPHEN.to(LOWER_CAMEL, "foo-bar"));
-  }
+    public void testUpperUnderscoreToLowerHyphen() {
+        assertThat(UPPER_UNDERSCORE.to(LOWER_HYPHEN, "FOO")).isEqualTo("foo");
+        assertThat(UPPER_UNDERSCORE.to(LOWER_HYPHEN, "FOO_BAR")).isEqualTo("foo-bar");
+    }
 
-  public void testLowerHyphenToUpperCamel() {
-    assertEquals("Foo", LOWER_HYPHEN.to(UPPER_CAMEL, "foo"));
-    assertEquals("FooBar", LOWER_HYPHEN.to(UPPER_CAMEL, "foo-bar"));
-  }
+    public void testUpperUnderscoreToLowerUnderscore() {
+        assertThat(UPPER_UNDERSCORE.to(LOWER_UNDERSCORE, "FOO")).isEqualTo("foo");
+        assertThat(UPPER_UNDERSCORE.to(LOWER_UNDERSCORE, "FOO_BAR")).isEqualTo("foo_bar");
+    }
 
-  public void testLowerHyphenToUpperUnderscore() {
-    assertEquals("FOO", LOWER_HYPHEN.to(UPPER_UNDERSCORE, "foo"));
-    assertEquals("FOO_BAR", LOWER_HYPHEN.to(UPPER_UNDERSCORE, "foo-bar"));
-  }
+    public void testUpperUnderscoreToLowerCamel() {
+        assertThat(UPPER_UNDERSCORE.to(LOWER_CAMEL, "FOO")).isEqualTo("foo");
+        assertThat(UPPER_UNDERSCORE.to(LOWER_CAMEL, "FOO_BAR")).isEqualTo("fooBar");
+    }
 
-  public void testLowerUnderscoreToLowerHyphen() {
-    assertEquals("foo", LOWER_UNDERSCORE.to(LOWER_HYPHEN, "foo"));
-    assertEquals("foo-bar", LOWER_UNDERSCORE.to(LOWER_HYPHEN, "foo_bar"));
-  }
+    public void testUpperUnderscoreToUpperCamel() {
+        assertThat(UPPER_UNDERSCORE.to(UPPER_CAMEL, "FOO")).isEqualTo("Foo");
+        assertThat(UPPER_UNDERSCORE.to(UPPER_CAMEL, "FOO_BAR")).isEqualTo("FooBar");
+        assertThat(UPPER_UNDERSCORE.to(UPPER_CAMEL, "H_T_T_P")).isEqualTo("HTTP");
+    }
 
-  public void testLowerUnderscoreToLowerUnderscore() {
-    assertEquals("foo", LOWER_UNDERSCORE.to(LOWER_UNDERSCORE, "foo"));
-    assertEquals("foo_bar", LOWER_UNDERSCORE.to(LOWER_UNDERSCORE, "foo_bar"));
-  }
-
-  public void testLowerUnderscoreToLowerCamel() {
-    assertEquals("foo", LOWER_UNDERSCORE.to(LOWER_CAMEL, "foo"));
-    assertEquals("fooBar", LOWER_UNDERSCORE.to(LOWER_CAMEL, "foo_bar"));
-  }
-
-  public void testLowerUnderscoreToUpperCamel() {
-    assertEquals("Foo", LOWER_UNDERSCORE.to(UPPER_CAMEL, "foo"));
-    assertEquals("FooBar", LOWER_UNDERSCORE.to(UPPER_CAMEL, "foo_bar"));
-  }
-
-  public void testLowerUnderscoreToUpperUnderscore() {
-    assertEquals("FOO", LOWER_UNDERSCORE.to(UPPER_UNDERSCORE, "foo"));
-    assertEquals("FOO_BAR", LOWER_UNDERSCORE.to(UPPER_UNDERSCORE, "foo_bar"));
-  }
-
-  public void testLowerCamelToLowerHyphen() {
-    assertEquals("foo", LOWER_CAMEL.to(LOWER_HYPHEN, "foo"));
-    assertEquals("foo-bar", LOWER_CAMEL.to(LOWER_HYPHEN, "fooBar"));
-    assertEquals("h-t-t-p", LOWER_CAMEL.to(LOWER_HYPHEN, "HTTP"));
-  }
-
-  public void testLowerCamelToLowerUnderscore() {
-    assertEquals("foo", LOWER_CAMEL.to(LOWER_UNDERSCORE, "foo"));
-    assertEquals("foo_bar", LOWER_CAMEL.to(LOWER_UNDERSCORE, "fooBar"));
-    assertEquals("h_t_t_p", LOWER_CAMEL.to(LOWER_UNDERSCORE, "hTTP"));
-  }
-
-  public void testLowerCamelToLowerCamel() {
-    assertEquals("foo", LOWER_CAMEL.to(LOWER_CAMEL, "foo"));
-    assertEquals("fooBar", LOWER_CAMEL.to(LOWER_CAMEL, "fooBar"));
-  }
-
-  public void testLowerCamelToUpperCamel() {
-    assertEquals("Foo", LOWER_CAMEL.to(UPPER_CAMEL, "foo"));
-    assertEquals("FooBar", LOWER_CAMEL.to(UPPER_CAMEL, "fooBar"));
-    assertEquals("HTTP", LOWER_CAMEL.to(UPPER_CAMEL, "hTTP"));
-  }
-
-  public void testLowerCamelToUpperUnderscore() {
-    assertEquals("FOO", LOWER_CAMEL.to(UPPER_UNDERSCORE, "foo"));
-    assertEquals("FOO_BAR", LOWER_CAMEL.to(UPPER_UNDERSCORE, "fooBar"));
-  }
-
-  public void testUpperCamelToLowerHyphen() {
-    assertEquals("foo", UPPER_CAMEL.to(LOWER_HYPHEN, "Foo"));
-    assertEquals("foo-bar", UPPER_CAMEL.to(LOWER_HYPHEN, "FooBar"));
-  }
-
-  public void testUpperCamelToLowerUnderscore() {
-    assertEquals("foo", UPPER_CAMEL.to(LOWER_UNDERSCORE, "Foo"));
-    assertEquals("foo_bar", UPPER_CAMEL.to(LOWER_UNDERSCORE, "FooBar"));
-  }
-
-  public void testUpperCamelToLowerCamel() {
-    assertEquals("foo", UPPER_CAMEL.to(LOWER_CAMEL, "Foo"));
-    assertEquals("fooBar", UPPER_CAMEL.to(LOWER_CAMEL, "FooBar"));
-    assertEquals("hTTP", UPPER_CAMEL.to(LOWER_CAMEL, "HTTP"));
-  }
-
-  public void testUpperCamelToUpperCamel() {
-    assertEquals("Foo", UPPER_CAMEL.to(UPPER_CAMEL, "Foo"));
-    assertEquals("FooBar", UPPER_CAMEL.to(UPPER_CAMEL, "FooBar"));
-  }
-
-  public void testUpperCamelToUpperUnderscore() {
-    assertEquals("FOO", UPPER_CAMEL.to(UPPER_UNDERSCORE, "Foo"));
-    assertEquals("FOO_BAR", UPPER_CAMEL.to(UPPER_UNDERSCORE, "FooBar"));
-    assertEquals("H_T_T_P", UPPER_CAMEL.to(UPPER_UNDERSCORE, "HTTP"));
-    assertEquals("H__T__T__P", UPPER_CAMEL.to(UPPER_UNDERSCORE, "H_T_T_P"));
-  }
-
-  public void testUpperUnderscoreToLowerHyphen() {
-    assertEquals("foo", UPPER_UNDERSCORE.to(LOWER_HYPHEN, "FOO"));
-    assertEquals("foo-bar", UPPER_UNDERSCORE.to(LOWER_HYPHEN, "FOO_BAR"));
-  }
-
-  public void testUpperUnderscoreToLowerUnderscore() {
-    assertEquals("foo", UPPER_UNDERSCORE.to(LOWER_UNDERSCORE, "FOO"));
-    assertEquals("foo_bar", UPPER_UNDERSCORE.to(LOWER_UNDERSCORE, "FOO_BAR"));
-  }
-
-  public void testUpperUnderscoreToLowerCamel() {
-    assertEquals("foo", UPPER_UNDERSCORE.to(LOWER_CAMEL, "FOO"));
-    assertEquals("fooBar", UPPER_UNDERSCORE.to(LOWER_CAMEL, "FOO_BAR"));
-  }
-
-  public void testUpperUnderscoreToUpperCamel() {
-    assertEquals("Foo", UPPER_UNDERSCORE.to(UPPER_CAMEL, "FOO"));
-    assertEquals("FooBar", UPPER_UNDERSCORE.to(UPPER_CAMEL, "FOO_BAR"));
-    assertEquals("HTTP", UPPER_UNDERSCORE.to(UPPER_CAMEL, "H_T_T_P"));
-  }
-
-  public void testUpperUnderscoreToUpperUnderscore() {
-    assertEquals("FOO", UPPER_UNDERSCORE.to(UPPER_UNDERSCORE, "FOO"));
-    assertEquals("FOO_BAR", UPPER_UNDERSCORE.to(UPPER_UNDERSCORE, "FOO_BAR"));
-  }
+    public void testUpperUnderscoreToUpperUnderscore() {
+        assertThat(UPPER_UNDERSCORE.to(UPPER_UNDERSCORE, "FOO")).isEqualTo("FOO");
+        assertThat(UPPER_UNDERSCORE.to(UPPER_UNDERSCORE, "FOO_BAR")).isEqualTo("FOO_BAR");
+    }
 
   public void testConverterToForward() {
-    assertEquals("FooBar", UPPER_UNDERSCORE.converterTo(UPPER_CAMEL).convert("FOO_BAR"));
-    assertEquals("fooBar", UPPER_UNDERSCORE.converterTo(LOWER_CAMEL).convert("FOO_BAR"));
-    assertEquals("FOO_BAR", UPPER_CAMEL.converterTo(UPPER_UNDERSCORE).convert("FooBar"));
-    assertEquals("FOO_BAR", LOWER_CAMEL.converterTo(UPPER_UNDERSCORE).convert("fooBar"));
+    assertThat(UPPER_UNDERSCORE.converterTo(UPPER_CAMEL).convert("FOO_BAR")).isEqualTo("FooBar");
+    assertThat(UPPER_UNDERSCORE.converterTo(LOWER_CAMEL).convert("FOO_BAR")).isEqualTo("fooBar");
+    assertThat(UPPER_CAMEL.converterTo(UPPER_UNDERSCORE).convert("FooBar")).isEqualTo("FOO_BAR");
+    assertThat(LOWER_CAMEL.converterTo(UPPER_UNDERSCORE).convert("fooBar")).isEqualTo("FOO_BAR");
   }
 
   public void testConverterToBackward() {
-    assertEquals("FOO_BAR", UPPER_UNDERSCORE.converterTo(UPPER_CAMEL).reverse().convert("FooBar"));
-    assertEquals("FOO_BAR", UPPER_UNDERSCORE.converterTo(LOWER_CAMEL).reverse().convert("fooBar"));
-    assertEquals("FooBar", UPPER_CAMEL.converterTo(UPPER_UNDERSCORE).reverse().convert("FOO_BAR"));
-    assertEquals("fooBar", LOWER_CAMEL.converterTo(UPPER_UNDERSCORE).reverse().convert("FOO_BAR"));
+    assertThat(UPPER_UNDERSCORE.converterTo(UPPER_CAMEL).reverse().convert("FooBar")).isEqualTo("FOO_BAR");
+    assertThat(UPPER_UNDERSCORE.converterTo(LOWER_CAMEL).reverse().convert("fooBar")).isEqualTo("FOO_BAR");
+    assertThat(UPPER_CAMEL.converterTo(UPPER_UNDERSCORE).reverse().convert("FOO_BAR")).isEqualTo("FooBar");
+    assertThat(LOWER_CAMEL.converterTo(UPPER_UNDERSCORE).reverse().convert("FOO_BAR")).isEqualTo("fooBar");
   }
 
   public void testConverter_nullConversions() {
     for (CaseFormat outer : CaseFormat.values()) {
       for (CaseFormat inner : CaseFormat.values()) {
-        assertNull(outer.converterTo(inner).convert(null));
-        assertNull(outer.converterTo(inner).reverse().convert(null));
+        assertThat(outer.converterTo(inner).convert(null)).isNull();
+        assertThat(outer.converterTo(inner).reverse().convert(null)).isNull();
       }
     }
   }
 
   public void testConverter_toString() {
-    assertEquals(
-        "LOWER_HYPHEN.converterTo(UPPER_CAMEL)", LOWER_HYPHEN.converterTo(UPPER_CAMEL).toString());
-  }
-
-  public void testConverter_serialization() {
-    for (CaseFormat outer : CaseFormat.values()) {
-      for (CaseFormat inner : CaseFormat.values()) {
-        SerializableTester.reserializeAndAssert(outer.converterTo(inner));
-      }
-    }
+    assertThat(LOWER_HYPHEN.converterTo(UPPER_CAMEL).toString())
+            .isEqualTo("LOWER_HYPHEN.converterTo(UPPER_CAMEL)");
   }
 }

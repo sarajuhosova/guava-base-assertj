@@ -22,6 +22,8 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import junit.framework.TestCase;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Unit test for {@link Charsets}.
  *
@@ -32,31 +34,31 @@ public class CharsetsTest extends TestCase {
 
   @GwtIncompatible // Non-UTF-8 Charset
   public void testUsAscii() {
-    assertEquals(Charset.forName("US-ASCII"), Charsets.US_ASCII);
+    assertThat(Charsets.US_ASCII).isEqualTo(Charset.forName("US-ASCII"));
   }
 
   @GwtIncompatible // Non-UTF-8 Charset
   public void testIso88591() {
-    assertEquals(Charset.forName("ISO-8859-1"), Charsets.ISO_8859_1);
+    assertThat(Charsets.ISO_8859_1).isEqualTo(Charset.forName("ISO-8859-1"));
   }
 
   public void testUtf8() {
-    assertEquals(Charset.forName("UTF-8"), Charsets.UTF_8);
+    assertThat(Charsets.UTF_8).isEqualTo(Charset.forName("UTF-8"));
   }
 
   @GwtIncompatible // Non-UTF-8 Charset
   public void testUtf16be() {
-    assertEquals(Charset.forName("UTF-16BE"), Charsets.UTF_16BE);
+    assertThat(Charsets.UTF_16BE).isEqualTo(Charset.forName("UTF-16BE"));
   }
 
   @GwtIncompatible // Non-UTF-8 Charset
   public void testUtf16le() {
-    assertEquals(Charset.forName("UTF-16LE"), Charsets.UTF_16LE);
+    assertThat(Charsets.UTF_16LE).isEqualTo(Charset.forName("UTF-16LE"));
   }
 
   @GwtIncompatible // Non-UTF-8 Charset
   public void testUtf16() {
-    assertEquals(Charset.forName("UTF-16"), Charsets.UTF_16);
+    assertThat(Charsets.UTF_16).isEqualTo(Charset.forName("UTF-16"));
   }
 
   @GwtIncompatible // Non-UTF-8 Charset
@@ -67,9 +69,9 @@ public class CharsetsTest extends TestCase {
     byte[] b4 = "ニュース".getBytes(Charsets.US_ASCII);
     byte[] b5 = "スューー".getBytes(Charsets.US_ASCII);
     // Assert they are all equal (using the transitive property)
-    assertTrue(Arrays.equals(b1, b2));
-    assertTrue(Arrays.equals(b2, b3));
-    assertTrue(Arrays.equals(b3, b4));
-    assertTrue(Arrays.equals(b4, b5));
+    assertThat(Arrays.equals(b1, b2)).isTrue();
+    assertThat(Arrays.equals(b2, b3)).isTrue();
+    assertThat(Arrays.equals(b3, b4)).isTrue();
+    assertThat(Arrays.equals(b4, b5)).isTrue();
   }
 }
